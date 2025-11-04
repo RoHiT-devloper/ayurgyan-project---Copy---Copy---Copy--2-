@@ -1,19 +1,28 @@
 #root {
-  max-width: 1280px;
+  max-width: 100%;
   margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  text-align: left;
 }
 
+/* Main app layout */
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Logo animations */
 .logo {
   height: 6em;
   padding: 1.5em;
   will-change: filter;
-  transition: filter 300ms;
+  transition: filter 300ms ease-in-out;
 }
+
 .logo:hover {
   filter: drop-shadow(0 0 2em #646cffaa);
 }
+
 .logo.react:hover {
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
@@ -27,16 +36,260 @@
   }
 }
 
+/* Reduced motion for logo spin */
 @media (prefers-reduced-motion: no-preference) {
   a:nth-of-type(2) .logo {
     animation: logo-spin infinite 20s linear;
   }
 }
 
+/* Card component */
 .card {
   padding: 2em;
+  background: var(--surface-color);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border-color);
 }
 
 .read-the-docs {
-  color: #888;
+  color: var(--text-secondary);
+  text-align: center;
+  margin-top: 2em;
+}
+
+/* App-specific utility classes */
+.app-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.app-header {
+  background: var(--surface-color);
+  border-bottom: 1px solid var(--border-color);
+  padding: 1rem 0;
+  position: sticky;
+  top: 0;
+  z-index: var(--z-sticky);
+  backdrop-filter: blur(8px);
+}
+
+.app-main {
+  flex: 1;
+  padding: 2rem 0;
+}
+
+.app-footer {
+  background: var(--surface-color);
+  border-top: 1px solid var(--border-color);
+  padding: 2rem 0;
+  margin-top: auto;
+}
+
+/* Loading states */
+.app-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 50vh;
+  gap: 1rem;
+}
+
+.app-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 50vh;
+  gap: 1rem;
+  text-align: center;
+  padding: 2rem;
+}
+
+.app-error h2 {
+  color: var(--error-color);
+  margin-bottom: 1rem;
+}
+
+/* Empty states */
+.empty-state {
+  text-align: center;
+  padding: 3rem 2rem;
+  color: var(--text-secondary);
+}
+
+.empty-state-icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  opacity: 0.5;
+}
+
+.empty-state h3 {
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.empty-state p {
+  margin: 0;
+  font-size: 0.875rem;
+}
+
+/* Notification styles */
+.app-notification {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: var(--z-popover);
+  max-width: 400px;
+  animation: slideInRight 0.3s ease-out;
+}
+
+.notification {
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  padding: 1rem;
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.notification.success {
+  border-left: 4px solid var(--success-color);
+}
+
+.notification.error {
+  border-left: 4px solid var(--error-color);
+}
+
+.notification.warning {
+  border-left: 4px solid var(--warning-color);
+}
+
+.notification.info {
+  border-left: 4px solid var(--info-color);
+}
+
+.notification-content {
+  flex: 1;
+}
+
+.notification-title {
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.notification-message {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+.notification-close {
+  background: none;
+  border: none;
+  color: var(--text-tertiary);
+  cursor: pointer;
+  padding: 0.25rem;
+  border-radius: var(--radius-sm);
+  transition: color var(--transition);
+}
+
+.notification-close:hover {
+  color: var(--text-primary);
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .app-container {
+    padding: 0 0.75rem;
+  }
+  
+  .app-main {
+    padding: 1rem 0;
+  }
+  
+  .app-notification {
+    left: 0.75rem;
+    right: 0.75rem;
+    max-width: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .app-container {
+    padding: 0 0.5rem;
+  }
+  
+  .card {
+    padding: 1.5em;
+  }
+}
+
+/* Dark mode adjustments */
+@media (prefers-color-scheme: dark) {
+  .logo:hover {
+    filter: drop-shadow(0 0 2em #646cff66);
+  }
+  
+  .logo.react:hover {
+    filter: drop-shadow(0 0 2em #61dafb66);
+  }
+}
+
+/* Print styles */
+@media print {
+  .app-header,
+  .app-footer,
+  .app-notification {
+    display: none;
+  }
+  
+  .app-main {
+    padding: 0;
+  }
+  
+  .card {
+    box-shadow: none;
+    border: 1px solid #000;
+    page-break-inside: avoid;
+  }
+}
+
+/* Focus management for app */
+.app:focus {
+  outline: none;
+}
+
+/* Custom scrollbar for app */
+.app::-webkit-scrollbar {
+  width: 12px;
+}
+
+.app::-webkit-scrollbar-track {
+  background: var(--background-color);
+}
+
+.app::-webkit-scrollbar-thumb {
+  background: var(--border-dark);
+  border-radius: var(--radius);
+}
+
+.app::-webkit-scrollbar-thumb:hover {
+  background: var(--text-tertiary);
 }

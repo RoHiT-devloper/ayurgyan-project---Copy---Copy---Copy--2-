@@ -9,35 +9,67 @@
   justify-content: center;
   align-items: center;
   z-index: 1100;
-  padding: 20px;
+  padding: 1.25rem;
+  backdrop-filter: blur(4px);
+  animation: overlayFadeIn 0.2s ease-out;
 }
 
 .medicinal-use-form-modal {
   background: white;
-  border-radius: 12px;
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  border-radius: 1rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
   width: 100%;
-  max-width: 600px;
+  max-width: 500px;
   max-height: 90vh;
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  animation: modalSlideIn 0.3s ease-out;
 }
 
 .medicinal-use-form-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px;
+  padding: 1.5rem 2rem;
   border-bottom: 1px solid #e5e7eb;
   background: #f9fafb;
+  flex-shrink: 0;
 }
 
 .medicinal-use-form-header h2 {
   margin: 0;
-  font-size: 1.25rem;
-  font-weight: 600;
+  font-size: 1.375rem;
+  font-weight: 700;
   color: #111827;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  color: #6b7280;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.close-button:hover {
+  background: #f3f4f6;
+  color: #374151;
+  transform: rotate(90deg);
+}
+
+.close-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
 }
 
 .medicinal-use-form {
@@ -50,8 +82,8 @@
 .medicinal-use-form .form-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 16px;
-  padding: 20px;
+  gap: 1.25rem;
+  padding: 2rem;
   overflow-y: auto;
   flex: 1;
 }
@@ -67,19 +99,32 @@
 
 .medicinal-use-form .form-label {
   font-size: 0.875rem;
-  font-weight: 500;
+  font-weight: 600;
   color: #374151;
-  margin-bottom: 6px;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.medicinal-use-form .form-label::after {
+  content: '*';
+  color: #ef4444;
+  margin-left: 0.25rem;
+}
+
+.medicinal-use-form .form-label:not(:has(+ *[required]))::after {
+  content: '';
 }
 
 .medicinal-use-form .form-input,
 .medicinal-use-form .form-select,
 .medicinal-use-form .form-textarea {
-  padding: 10px 12px;
+  padding: 0.75rem 1rem;
   border: 1px solid #d1d5db;
-  border-radius: 6px;
+  border-radius: 0.5rem;
   font-size: 0.875rem;
-  transition: all 0.2s;
+  transition: all 0.2s ease;
   background: white;
   font-family: inherit;
 }
@@ -90,6 +135,7 @@
   outline: none;
   border-color: #2563eb;
   box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+  transform: translateY(-1px);
 }
 
 .medicinal-use-form .form-input:disabled,
@@ -103,107 +149,211 @@
 .medicinal-use-form .form-textarea {
   resize: vertical;
   min-height: 80px;
+  line-height: 1.5;
 }
 
 .medicinal-use-form .form-actions {
   display: flex;
   justify-content: flex-end;
-  gap: 12px;
-  padding: 16px 20px;
+  gap: 1rem;
+  padding: 1.5rem 2rem;
   border-top: 1px solid #e5e7eb;
   background: #f9fafb;
+  flex-shrink: 0;
 }
 
 .medicinal-use-form .btn-primary {
   background: #2563eb;
   color: white;
   border: none;
-  padding: 10px 20px;
-  border-radius: 6px;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
   font-size: 0.875rem;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(37, 99, 235, 0.2);
 }
 
 .medicinal-use-form .btn-primary:hover {
   background: #1d4ed8;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
+.medicinal-use-form .btn-primary:active {
+  transform: translateY(0);
 }
 
 .medicinal-use-form .btn-primary:disabled {
   background: #93c5fd;
   cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
 }
 
 .medicinal-use-form .btn-secondary {
-  padding: 10px 20px;
+  padding: 0.75rem 1.5rem;
   border: 1px solid #d1d5db;
-  border-radius: 6px;
+  border-radius: 0.5rem;
   background: white;
   color: #374151;
   font-size: 0.875rem;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.2s ease;
 }
 
 .medicinal-use-form .btn-secondary:hover {
   background: #f9fafb;
   border-color: #9ca3af;
+  transform: translateY(-1px);
 }
 
 .medicinal-use-form .btn-secondary:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+  transform: none;
 }
 
-.close-button {
-  background: none;
-  border: none;
-  padding: 8px;
-  border-radius: 6px;
+/* Evidence level badges preview */
+.evidence-level-preview {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.evidence-badge {
+  padding: 0.375rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
   cursor: pointer;
+  transition: all 0.2s ease;
+  border: 2px solid transparent;
+}
+
+.evidence-badge:hover {
+  transform: scale(1.05);
+}
+
+.evidence-badge.traditional {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.evidence-badge.anecdotal {
+  background: #ddd6fe;
+  color: #5b21b6;
+}
+
+.evidence-badge.scientific {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.evidence-badge.active {
+  border-color: currentColor;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Form hints and validation */
+.form-hint {
+  font-size: 0.75rem;
   color: #6b7280;
-  transition: all 0.2s;
+  margin-top: 0.375rem;
+  font-style: italic;
 }
 
-.close-button:hover {
-  background: #f3f4f6;
-  color: #374151;
+.form-error {
+  font-size: 0.75rem;
+  color: #ef4444;
+  margin-top: 0.375rem;
+  font-weight: 500;
 }
 
-.close-button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
+.form-input.error,
+.form-select.error,
+.form-textarea.error {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+/* Animations */
+@keyframes overlayFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
 }
 
 /* Responsive Design */
 @media (max-width: 640px) {
   .medicinal-use-form-overlay {
-    padding: 10px;
+    padding: 1rem;
   }
   
   .medicinal-use-form-modal {
     max-height: 95vh;
+    border-radius: 0.75rem;
   }
   
   .medicinal-use-form-header {
-    padding: 16px;
+    padding: 1.25rem 1.5rem;
+  }
+  
+  .medicinal-use-form-header h2 {
+    font-size: 1.25rem;
   }
   
   .medicinal-use-form .form-grid {
-    padding: 16px;
-    gap: 12px;
+    padding: 1.5rem;
+    gap: 1rem;
   }
   
   .medicinal-use-form .form-actions {
-    padding: 12px 16px;
+    padding: 1.25rem 1.5rem;
     flex-direction: column-reverse;
   }
   
   .medicinal-use-form .btn-primary,
   .medicinal-use-form .btn-secondary {
     width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .medicinal-use-form-overlay {
+    padding: 0.5rem;
+  }
+  
+  .medicinal-use-form-modal {
+    border-radius: 0.5rem;
+  }
+  
+  .medicinal-use-form .form-grid {
+    padding: 1.25rem;
+  }
+  
+  .medicinal-use-form-header {
+    padding: 1rem 1.25rem;
   }
 }
 
@@ -224,4 +374,18 @@
 
 .medicinal-use-form-modal ::-webkit-scrollbar-thumb:hover {
   background: #a8a8a8;
+}
+
+/* Focus styles for accessibility */
+.medicinal-use-form .form-input:focus-visible,
+.medicinal-use-form .form-select:focus-visible,
+.medicinal-use-form .form-textarea:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+}
+
+.medicinal-use-form .btn-primary:focus-visible,
+.medicinal-use-form .btn-secondary:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
 }
