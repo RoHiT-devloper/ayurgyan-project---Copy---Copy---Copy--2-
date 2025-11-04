@@ -11,6 +11,7 @@ import com.ayurgyan.repository.HerbRepository;
 import com.ayurgyan.service.HerbService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -147,27 +148,49 @@ public class HerbServiceImpl implements HerbService {
         }
     }
 
-    @Override
-    public HerbDTO createHerb(Herb herb) {
-        try {
-            System.out.println("=== CREATE HERB ===");
-            System.out.println("Creating herb: " + herb.getName());
-            
-            if (existsByName(herb.getName())) {
-                throw new RuntimeException("Herb with name '" + herb.getName() + "' already exists");
-            }
-            
-            Herb savedHerb = herbRepository.save(herb);
-            System.out.println("Herb created successfully with ID: " + savedHerb.getId());
-            
-            return convertToDTO(savedHerb);
-            
-        } catch (Exception e) {
-            System.err.println("Error in createHerb: " + e.getMessage());
-            e.printStackTrace();
-            throw e;
+@Override
+@Transactional
+public HerbDTO createHerb(Herb herb) {
+    try {
+        System.out.println("=== CREATE HERB ===");
+        System.out.println("Creating herb: " + herb.getName());
+        System.out.println("Scientific Name: " + herb.getScientificName());
+        System.out.println("Safety Level: " + herb.getSafetyLevel());
+        System.out.println("Description: " + (herb.getDescription() != null ? herb.getDescription().substring(0, Math.min(50, herb.getDescription().length())) + "..." : "null"));
+        
+        if (existsByName(herb.getName())) {
+            throw new RuntimeException("Herb with name '" + herb.getName() + "' already exists");
         }
+        
+        // Set default values if not provided
+        if (herb.getSafetyLevel() == null) {
+            herb.setSafetyLevel(SafetyLevel.SAFE);
+        }
+        if (herb.getAverageRating() == null) {
+            herb.setAverageRating(0.0);
+        }
+        
+        // Initialize collections to avoid null pointers
+        if (herb.getMedicinalUses() == null) {
+            herb.setMedicinalUses(new ArrayList<>());
+        }
+        if (herb.getScientificStudies() == null) {
+            herb.setScientificStudies(new ArrayList<>());
+        }
+        
+        Herb savedHerb = herbRepository.save(herb);
+        System.out.println("Herb created successfully with ID: " + savedHerb.getId());
+        System.out.println("Medicinal uses count: " + savedHerb.getMedicinalUses().size());
+        System.out.println("Scientific studies count: " + savedHerb.getScientificStudies().size());
+        
+        return convertToDTO(savedHerb);
+        
+    } catch (Exception e) {
+        System.err.println("Error in createHerb: " + e.getMessage());
+        e.printStackTrace();
+        throw e;
     }
+}
 
     @Override
     public HerbDTO updateHerb(Long id, Herb herbDetails) {

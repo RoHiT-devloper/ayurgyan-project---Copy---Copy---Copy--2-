@@ -114,24 +114,37 @@ public ResponseEntity<ApiResponse<List<HerbDTO>>> getAllHerbsLegacy() {
                     .body(ApiResponse.error("Failed to retrieve herbs: " + e.getMessage()));
         }
     }
-
-    @PostMapping
-    @Operation(summary = "Create new herb", description = "Add a new herb to the database")
-    public ResponseEntity<ApiResponse<HerbDTO>> createHerb(@Valid @RequestBody Herb herb) {
-        try {
-            if (herbService.existsByName(herb.getName())) {
-                return ResponseEntity.badRequest()
-                        .body(ApiResponse.error("Herb with name '" + herb.getName() + "' already exists"));
-            }
-            
-            HerbDTO createdHerb = herbService.createHerb(herb);
-            return ResponseEntity.ok(ApiResponse.success("Herb created successfully", createdHerb));
-        } catch (Exception e) {
-            System.err.println("Error in createHerb: " + e.getMessage());
-            return ResponseEntity.internalServerError()
-                    .body(ApiResponse.error("Failed to create herb: " + e.getMessage()));
+@PostMapping
+@Operation(summary = "Create new herb", description = "Add a new herb to the database")
+public ResponseEntity<ApiResponse<HerbDTO>> createHerb(@Valid @RequestBody Herb herb) {
+    try {
+        System.out.println("=== CREATE HERB ENDPOINT CALLED ===");
+        System.out.println("Herb name: " + herb.getName());
+        System.out.println("Scientific name: " + herb.getScientificName());
+        System.out.println("Safety level: " + herb.getSafetyLevel());
+        System.out.println("Medicinal uses count: " + (herb.getMedicinalUses() != null ? herb.getMedicinalUses().size() : 0));
+        System.out.println("Scientific studies count: " + (herb.getScientificStudies() != null ? herb.getScientificStudies().size() : 0));
+        
+        if (herbService.existsByName(herb.getName())) {
+            return ResponseEntity.badRequest()
+                    .body(ApiResponse.error("Herb with name '" + herb.getName() + "' already exists"));
         }
+        
+        // Validate required fields
+        if (herb.getName() == null || herb.getName().trim().isEmpty()) {
+            return ResponseEntity.badRequest()
+                    .body(ApiResponse.error("Herb name is required"));
+        }
+        
+        HerbDTO createdHerb = herbService.createHerb(herb);
+        return ResponseEntity.ok(ApiResponse.success("Herb created successfully", createdHerb));
+    } catch (Exception e) {
+        System.err.println("Error in createHerb: " + e.getMessage());
+        e.printStackTrace();
+        return ResponseEntity.internalServerError()
+                .body(ApiResponse.error("Failed to create herb: " + e.getMessage()));
     }
+}
 
     @PutMapping("/{id}")
     @Operation(summary = "Update herb", description = "Update an existing herb's information")
