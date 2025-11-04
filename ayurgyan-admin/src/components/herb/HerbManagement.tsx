@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Plus, Search } from 'lucide-react';
+import { Plus, Search, RefreshCw } from 'lucide-react';
 import HerbList from './HerbList';
 import HerbForm from './HerbForm';
 import { adminService } from '../../services/adminService';
@@ -14,6 +14,8 @@ const HerbManagement: React.FC = () => {
   const [showForm, setShowForm] = useState(false);
   const [editingHerb, setEditingHerb] = useState<Herb | null>(null);
   const [formLoading, setFormLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
 
   useEffect(() => {
     loadHerbs();
@@ -31,11 +33,14 @@ const HerbManagement: React.FC = () => {
   const loadHerbs = async () => {
     try {
       setLoading(true);
+      setError(null);
+      console.log('Loading herbs from backend...');
       const data = await adminService.getAllHerbs();
+      console.log('Herbs loaded successfully:', data.length);
       setHerbs(data);
     } catch (error) {
       console.error('Error loading herbs:', error);
-      alert('Failed to load herbs. Please check your connection.');
+      setError('Failed to load herbs. Please check your connection.');
     } finally {
       setLoading(false);
     }
@@ -44,17 +49,20 @@ const HerbManagement: React.FC = () => {
   const handleCreateHerb = async (herbData: Partial<Herb>) => {
     try {
       setFormLoading(true);
+      setError(null);
+      setSuccess(null);
+      console.log('Creating herb:', herbData);
       const newHerb = await adminService.createHerb(herbData);
       await loadHerbs();
       setShowForm(false);
-      alert('Herb created successfully!');
+      setSuccess('Herb created successfully!');
       
       // If this was a new herb creation, set it for editing to allow adding medicinal uses/studies
       setEditingHerb(newHerb);
       setShowForm(true);
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error creating herb:', error);
-      alert('Failed to create herb. Please try again.');
+      setError('Failed to create herb. Please try again.');
     } finally {
       setFormLoading(false);
     }
@@ -65,12 +73,15 @@ const HerbManagement: React.FC = () => {
     
     try {
       setFormLoading(true);
+      setError(null);
+      setSuccess(null);
+      console.log('Updating herb:', editingHerb.id, herbData);
       await adminService.updateHerb(editingHerb.id, herbData);
       await loadHerbs();
-      alert('Herb updated successfully!');
-    } catch (error) {
+      setSuccess('Herb updated successfully!');
+    } catch (error: any) {
       console.error('Error updating herb:', error);
-      alert('Failed to update herb. Please try again.');
+      setError('Failed to update herb. Please try again.');
     } finally {
       setFormLoading(false);
     }
@@ -78,47 +89,116 @@ const HerbManagement: React.FC = () => {
 
   const handleDeleteHerb = async (id: number) => {
     try {
+      setError(null);
+      setSuccess(null);
+      console.log('Deleting herb:', id);
       await adminService.deleteHerb(id);
       await loadHerbs();
-      alert('Herb deleted successfully!');
-    } catch (error) {
+      setSuccess('Herb deleted successfully!');
+    } catch (error: any) {
       console.error('Error deleting herb:', error);
-      alert('Failed to delete herb. Please try again.');
+      setError('Failed to delete herb. Please try again.');
     }
   };
 
   const handleEditHerb = (herb: Herb) => {
     setEditingHerb(herb);
+    setShowForm(true);
   };
 
   const handleMedicinalUseCreate = async (data: Partial<MedicinalUse>) => {
-    await adminService.createMedicinalUse(data);
-    await loadHerbs(); // Reload to get updated data
+    try {
+      setError(null);
+      setSuccess(null);
+      console.log('Creating medicinal use:', data);
+      await adminService.createMedicinalUse(data);
+      await loadHerbs(); // Reload to get updated data
+      setSuccess('Medicinal use added successfully!');
+    } catch (error: any) {
+      console.error('Error creating medicinal use:', error);
+      setError('Failed to create medicinal use. Please try again.');
+      throw error; // Re-throw to let the form handle it
+    }
   };
 
   const handleMedicinalUseUpdate = async (id: number, data: Partial<MedicinalUse>) => {
-    await adminService.updateMedicinalUse(id, data);
-    await loadHerbs();
+    try {
+      setError(null);
+      setSuccess(null);
+      console.log('Updating medicinal use:', id, data);
+      await adminService.updateMedicinalUse(id, data);
+      await loadHerbs();
+      setSuccess('Medicinal use updated successfully!');
+    } catch (error: any) {
+      console.error('Error updating medicinal use:', error);
+      setError('Failed to update medicinal use. Please try again.');
+      throw error;
+    }
   };
 
   const handleMedicinalUseDelete = async (id: number) => {
-    await adminService.deleteMedicinalUse(id);
-    await loadHerbs();
+    try {
+      setError(null);
+      setSuccess(null);
+      console.log('Deleting medicinal use:', id);
+      await adminService.deleteMedicinalUse(id);
+      await loadHerbs();
+      setSuccess('Medicinal use deleted successfully!');
+    } catch (error: any) {
+      console.error('Error deleting medicinal use:', error);
+      setError('Failed to delete medicinal use. Please try again.');
+      throw error;
+    }
   };
 
   const handleScientificStudyCreate = async (data: Partial<ScientificStudy>) => {
-    await adminService.createScientificStudy(data);
-    await loadHerbs();
+    try {
+      setError(null);
+      setSuccess(null);
+      console.log('Creating scientific study:', data);
+      await adminService.createScientificStudy(data);
+      await loadHerbs();
+      setSuccess('Scientific study added successfully!');
+    } catch (error: any) {
+      console.error('Error creating scientific study:', error);
+      setError('Failed to create scientific study. Please try again.');
+      throw error;
+    }
   };
 
   const handleScientificStudyUpdate = async (id: number, data: Partial<ScientificStudy>) => {
-    await adminService.updateScientificStudy(id, data);
-    await loadHerbs();
+    try {
+      setError(null);
+      setSuccess(null);
+      console.log('Updating scientific study:', id, data);
+      await adminService.updateScientificStudy(id, data);
+      await loadHerbs();
+      setSuccess('Scientific study updated successfully!');
+    } catch (error: any) {
+      console.error('Error updating scientific study:', error);
+      setError('Failed to update scientific study. Please try again.');
+      throw error;
+    }
   };
 
   const handleScientificStudyDelete = async (id: number) => {
-    await adminService.deleteScientificStudy(id);
-    await loadHerbs();
+    try {
+      setError(null);
+      setSuccess(null);
+      console.log('Deleting scientific study:', id);
+      await adminService.deleteScientificStudy(id);
+      await loadHerbs();
+      setSuccess('Scientific study deleted successfully!');
+    } catch (error: any) {
+      console.error('Error deleting scientific study:', error);
+      setError('Failed to delete scientific study. Please try again.');
+      throw error;
+    }
+  };
+
+  const clearMessages = () => {
+    setError(null);
+    setSuccess(null);
   };
 
   return (
@@ -128,14 +208,43 @@ const HerbManagement: React.FC = () => {
           <h1>Herb Management</h1>
           <p>Manage all herbs in the database</p>
         </div>
-        <button
-          className="btn btn-primary"
-          onClick={() => setShowForm(true)}
-        >
-          <Plus size={20} />
-          Add New Herb
-        </button>
+        <div className="header-actions">
+          <button
+            className="btn btn-secondary"
+            onClick={loadHerbs}
+            disabled={loading}
+            title="Refresh herbs"
+          >
+            <RefreshCw size={16} />
+            Refresh
+          </button>
+          <button
+            className="btn btn-primary"
+            onClick={() => {
+              setEditingHerb(null);
+              setShowForm(true);
+              clearMessages();
+            }}
+          >
+            <Plus size={20} />
+            Add New Herb
+          </button>
+        </div>
       </div>
+
+      {error && (
+        <div className="alert alert-error">
+          <strong>Error:</strong> {error}
+          <button className="alert-close" onClick={() => setError(null)}>×</button>
+        </div>
+      )}
+
+      {success && (
+        <div className="alert alert-success">
+          <strong>Success:</strong> {success}
+          <button className="alert-close" onClick={() => setSuccess(null)}>×</button>
+        </div>
+      )}
 
       <div className="search-section">
         <div className="search-input-wrapper">
@@ -169,6 +278,7 @@ const HerbManagement: React.FC = () => {
           onCancel={() => {
             setShowForm(false);
             setEditingHerb(null);
+            clearMessages();
           }}
           loading={formLoading}
           onMedicinalUseCreate={handleMedicinalUseCreate}

@@ -48,10 +48,10 @@ public class SecurityConfig {
                 .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
                 .requestMatchers("/error").permitAll()
                 
-                // Admin endpoints - FIXED: Use proper requestMatchers
+                // Admin endpoints - FIXED: Allow authenticated users for medicinal uses and scientific studies
                 .requestMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
-                .requestMatchers("/api/medicinal-uses/**").hasAuthority("ROLE_ADMIN")
-                .requestMatchers("/api/scientific-studies/**").hasAuthority("ROLE_ADMIN")
+                .requestMatchers("/api/medicinal-uses/**").authenticated() // Changed from hasAuthority("ROLE_ADMIN")
+                .requestMatchers("/api/scientific-studies/**").authenticated() // Changed from hasAuthority("ROLE_ADMIN")
                 
                 // Authenticated endpoints
                 .anyRequest().authenticated()

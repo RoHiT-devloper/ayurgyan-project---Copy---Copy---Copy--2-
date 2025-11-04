@@ -33,25 +33,31 @@ public class MedicinalUseController {
         }
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<ApiResponse<MedicinalUse>> updateMedicinalUse(
-            @PathVariable Long id, 
-            @Valid @RequestBody MedicinalUse medicinalUse) {
-        try {
-            System.out.println("=== UPDATE MEDICINAL USE ENDPOINT ===");
-            System.out.println("ID: " + id + ", Data: " + medicinalUse);
-            
-            MedicinalUse updated = medicinalUseService.updateMedicinalUse(id, medicinalUse);
-            return ResponseEntity.ok(ApiResponse.success("Medicinal use updated successfully", updated));
-        } catch (RuntimeException e) {
-            return ResponseEntity.status(404)
-                    .body(ApiResponse.error("Medicinal use not found: " + e.getMessage()));
-        } catch (Exception e) {
-            System.err.println("Error updating medicinal use: " + e.getMessage());
+@PutMapping("/{id}")
+public ResponseEntity<ApiResponse<MedicinalUse>> updateMedicinalUse(
+        @PathVariable Long id, 
+        @Valid @RequestBody MedicinalUse medicinalUse) {
+    try {
+        System.out.println("=== UPDATE MEDICINAL USE ENDPOINT ===");
+        System.out.println("ID: " + id + ", Data: " + medicinalUse);
+        
+        // Validate required fields
+        if (medicinalUse.getCondition() == null || medicinalUse.getCondition().trim().isEmpty()) {
             return ResponseEntity.badRequest()
-                    .body(ApiResponse.error("Failed to update medicinal use: " + e.getMessage()));
+                    .body(ApiResponse.error("Condition is required"));
         }
+        
+        MedicinalUse updated = medicinalUseService.updateMedicinalUse(id, medicinalUse);
+        return ResponseEntity.ok(ApiResponse.success("Medicinal use updated successfully", updated));
+    } catch (RuntimeException e) {
+        return ResponseEntity.status(404)
+                .body(ApiResponse.error("Medicinal use not found: " + e.getMessage()));
+    } catch (Exception e) {
+        System.err.println("Error updating medicinal use: " + e.getMessage());
+        return ResponseEntity.badRequest()
+                .body(ApiResponse.error("Failed to update medicinal use: " + e.getMessage()));
     }
+}
 
     @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse<Void>> deleteMedicinalUse(@PathVariable Long id) {

@@ -12,6 +12,212 @@
   padding: 20px;
 }
 
+/* Inline Editing Styles */
+.add-item-form {
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 24px;
+}
+
+.add-item-form h4 {
+  margin-top: 0;
+  margin-bottom: 16px;
+  color: #495057;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.form-grid.compact {
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.form-grid.compact .form-group.full-width {
+  grid-column: 1 / -1;
+}
+
+.items-section {
+  margin-top: 24px;
+}
+
+.items-section h4 {
+  margin-bottom: 16px;
+  color: #495057;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.edit-form {
+  background: #f8f9fa;
+  border-radius: 6px;
+  padding: 16px;
+}
+
+.edit-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.edit-actions .btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.item-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 16px;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  background: white;
+  transition: all 0.2s ease;
+}
+
+.item-card:hover {
+  border-color: #007bff;
+  box-shadow: 0 2px 4px rgba(0, 123, 255, 0.1);
+}
+
+.item-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.item-content h4 {
+  margin: 0 0 8px 0;
+  color: #212529;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.item-details {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 0;
+  color: #6c757d;
+  font-size: 13px;
+}
+
+.item-details span {
+  display: inline-block;
+  margin-right: 12px;
+}
+
+.item-findings {
+  margin: 8px 0 0 0;
+  color: #495057;
+  font-size: 13px;
+  font-style: italic;
+}
+
+.item-actions {
+  display: flex;
+  gap: 8px;
+  margin-left: 16px;
+  flex-shrink: 0;
+}
+
+.btn-action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-action.btn-edit {
+  background: #e7f3ff;
+  color: #007bff;
+}
+
+.btn-action.btn-edit:hover {
+  background: #d0e7ff;
+}
+
+.btn-action.btn-delete {
+  background: #ffeaea;
+  color: #dc3545;
+}
+
+.btn-action.btn-delete:hover {
+  background: #ffd6d6;
+}
+
+/* Badge Styles */
+.badge {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.badge-traditional {
+  background: #e7f3ff;
+  color: #007bff;
+}
+
+.badge-anecdotal {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.badge-scientific {
+  background: #d1edff;
+  color: #0056b3;
+}
+
+.badge-weak {
+  background: #ffeaea;
+  color: #dc3545;
+}
+
+.badge-moderate {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.badge-strong {
+  background: #d1edff;
+  color: #0056b3;
+}
+
+.badge-very_strong {
+  background: #d4edda;
+  color: #155724;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .form-grid.compact {
+    grid-template-columns: 1fr;
+  }
+  
+  .item-card {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .item-actions {
+    margin-left: 0;
+    margin-top: 12px;
+    justify-content: flex-end;
+  }
+}
+
 .herb-form-modal {
   background: white;
   border-radius: 12px;

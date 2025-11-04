@@ -62,7 +62,14 @@ const ScientificStudyForm: React.FC<ScientificStudyFormProps> = ({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSubmit(formData);
+    
+    // Ensure herbId is included in the data
+    const submitData = {
+      ...formData,
+      herbId: herbId || scientificStudy?.herbId
+    };
+    
+    onSubmit(submitData);
   };
 
   return (

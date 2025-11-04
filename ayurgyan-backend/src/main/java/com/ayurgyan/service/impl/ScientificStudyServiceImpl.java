@@ -7,6 +7,7 @@ import com.ayurgyan.repository.HerbRepository;
 import com.ayurgyan.service.ScientificStudyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,6 +22,7 @@ public class ScientificStudyServiceImpl implements ScientificStudyService {
     private HerbRepository herbRepository;
 
     @Override
+    @Transactional
     public ScientificStudy createScientificStudy(ScientificStudy scientificStudy) {
         try {
             System.out.println("=== CREATE SCIENTIFIC STUDY ===");
@@ -45,6 +47,7 @@ public class ScientificStudyServiceImpl implements ScientificStudyService {
     }
 
     @Override
+    @Transactional
     public ScientificStudy updateScientificStudy(Long id, ScientificStudy scientificStudyDetails) {
         try {
             System.out.println("=== UPDATE SCIENTIFIC STUDY: " + id + " ===");
@@ -52,6 +55,13 @@ public class ScientificStudyServiceImpl implements ScientificStudyService {
             ScientificStudy scientificStudy = scientificStudyRepository.findById(id)
                     .orElseThrow(() -> new RuntimeException("Scientific study not found with id: " + id));
 
+            System.out.println("Updating scientific study: " + scientificStudy.getTitle());
+            System.out.println("New data - Title: " + scientificStudyDetails.getTitle());
+            System.out.println("New data - Authors: " + scientificStudyDetails.getAuthors());
+            System.out.println("New data - Journal: " + scientificStudyDetails.getJournal());
+            System.out.println("New data - Publication Year: " + scientificStudyDetails.getPublicationYear());
+
+            // Update all fields
             scientificStudy.setTitle(scientificStudyDetails.getTitle());
             scientificStudy.setAuthors(scientificStudyDetails.getAuthors());
             scientificStudy.setJournal(scientificStudyDetails.getJournal());
@@ -63,7 +73,7 @@ public class ScientificStudyServiceImpl implements ScientificStudyService {
             scientificStudy.setUrl(scientificStudyDetails.getUrl());
 
             ScientificStudy updated = scientificStudyRepository.save(scientificStudy);
-            System.out.println("Scientific study updated successfully");
+            System.out.println("Scientific study updated successfully: " + updated.getId());
             return updated;
             
         } catch (Exception e) {
@@ -73,12 +83,15 @@ public class ScientificStudyServiceImpl implements ScientificStudyService {
     }
 
     @Override
+    @Transactional
     public void deleteScientificStudy(Long id) {
         try {
             System.out.println("=== DELETE SCIENTIFIC STUDY: " + id + " ===");
             
             ScientificStudy scientificStudy = scientificStudyRepository.findById(id)
                     .orElseThrow(() -> new RuntimeException("Scientific study not found with id: " + id));
+            
+            System.out.println("Deleting scientific study: " + scientificStudy.getTitle());
             scientificStudyRepository.delete(scientificStudy);
             
             System.out.println("Scientific study deleted successfully");

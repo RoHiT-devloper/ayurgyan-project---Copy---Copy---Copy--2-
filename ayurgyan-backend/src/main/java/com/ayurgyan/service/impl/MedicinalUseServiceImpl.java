@@ -7,6 +7,7 @@ import com.ayurgyan.repository.HerbRepository;
 import com.ayurgyan.service.MedicinalUseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,6 +22,7 @@ public class MedicinalUseServiceImpl implements MedicinalUseService {
     private HerbRepository herbRepository;
 
     @Override
+    @Transactional
     public MedicinalUse createMedicinalUse(MedicinalUse medicinalUse) {
         try {
             System.out.println("=== CREATE MEDICINAL USE ===");
@@ -45,6 +47,7 @@ public class MedicinalUseServiceImpl implements MedicinalUseService {
     }
 
     @Override
+    @Transactional
     public MedicinalUse updateMedicinalUse(Long id, MedicinalUse medicinalUseDetails) {
         try {
             System.out.println("=== UPDATE MEDICINAL USE: " + id + " ===");
@@ -52,6 +55,14 @@ public class MedicinalUseServiceImpl implements MedicinalUseService {
             MedicinalUse medicinalUse = medicinalUseRepository.findById(id)
                     .orElseThrow(() -> new RuntimeException("Medicinal use not found with id: " + id));
 
+            System.out.println("Updating medicinal use: " + medicinalUse.getCondition());
+            System.out.println("New data - Condition: " + medicinalUseDetails.getCondition());
+            System.out.println("New data - Preparation: " + medicinalUseDetails.getPreparation());
+            System.out.println("New data - Dosage: " + medicinalUseDetails.getDosage());
+            System.out.println("New data - Duration: " + medicinalUseDetails.getDuration());
+            System.out.println("New data - Evidence Level: " + medicinalUseDetails.getEvidenceLevel());
+
+            // Update all fields
             medicinalUse.setCondition(medicinalUseDetails.getCondition());
             medicinalUse.setPreparation(medicinalUseDetails.getPreparation());
             medicinalUse.setDosage(medicinalUseDetails.getDosage());
@@ -59,7 +70,7 @@ public class MedicinalUseServiceImpl implements MedicinalUseService {
             medicinalUse.setEvidenceLevel(medicinalUseDetails.getEvidenceLevel());
 
             MedicinalUse updated = medicinalUseRepository.save(medicinalUse);
-            System.out.println("Medicinal use updated successfully");
+            System.out.println("Medicinal use updated successfully: " + updated.getId());
             return updated;
             
         } catch (Exception e) {
@@ -69,12 +80,15 @@ public class MedicinalUseServiceImpl implements MedicinalUseService {
     }
 
     @Override
+    @Transactional
     public void deleteMedicinalUse(Long id) {
         try {
             System.out.println("=== DELETE MEDICINAL USE: " + id + " ===");
             
             MedicinalUse medicinalUse = medicinalUseRepository.findById(id)
                     .orElseThrow(() -> new RuntimeException("Medicinal use not found with id: " + id));
+            
+            System.out.println("Deleting medicinal use: " + medicinalUse.getCondition());
             medicinalUseRepository.delete(medicinalUse);
             
             System.out.println("Medicinal use deleted successfully");

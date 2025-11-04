@@ -32,26 +32,31 @@ public class ScientificStudyController {
                     .body(ApiResponse.error("Failed to create scientific study: " + e.getMessage()));
         }
     }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<ApiResponse<ScientificStudy>> updateScientificStudy(
-            @PathVariable Long id, 
-            @Valid @RequestBody ScientificStudy scientificStudy) {
-        try {
-            System.out.println("=== UPDATE SCIENTIFIC STUDY ENDPOINT ===");
-            System.out.println("ID: " + id + ", Data: " + scientificStudy);
-            
-            ScientificStudy updated = scientificStudyService.updateScientificStudy(id, scientificStudy);
-            return ResponseEntity.ok(ApiResponse.success("Scientific study updated successfully", updated));
-        } catch (RuntimeException e) {
-            return ResponseEntity.status(404)
-                    .body(ApiResponse.error("Scientific study not found: " + e.getMessage()));
-        } catch (Exception e) {
-            System.err.println("Error updating scientific study: " + e.getMessage());
+@PutMapping("/{id}")
+public ResponseEntity<ApiResponse<ScientificStudy>> updateScientificStudy(
+        @PathVariable Long id, 
+        @Valid @RequestBody ScientificStudy scientificStudy) {
+    try {
+        System.out.println("=== UPDATE SCIENTIFIC STUDY ENDPOINT ===");
+        System.out.println("ID: " + id + ", Data: " + scientificStudy);
+        
+        // Validate required fields
+        if (scientificStudy.getTitle() == null || scientificStudy.getTitle().trim().isEmpty()) {
             return ResponseEntity.badRequest()
-                    .body(ApiResponse.error("Failed to update scientific study: " + e.getMessage()));
+                    .body(ApiResponse.error("Title is required"));
         }
+        
+        ScientificStudy updated = scientificStudyService.updateScientificStudy(id, scientificStudy);
+        return ResponseEntity.ok(ApiResponse.success("Scientific study updated successfully", updated));
+    } catch (RuntimeException e) {
+        return ResponseEntity.status(404)
+                .body(ApiResponse.error("Scientific study not found: " + e.getMessage()));
+    } catch (Exception e) {
+        System.err.println("Error updating scientific study: " + e.getMessage());
+        return ResponseEntity.badRequest()
+                .body(ApiResponse.error("Failed to update scientific study: " + e.getMessage()));
     }
+}
 
     @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse<Void>> deleteScientificStudy(@PathVariable Long id) {

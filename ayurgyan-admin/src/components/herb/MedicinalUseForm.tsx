@@ -54,7 +54,14 @@ const MedicinalUseForm: React.FC<MedicinalUseFormProps> = ({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSubmit(formData);
+    
+    // Ensure herbId is included in the data
+    const submitData = {
+      ...formData,
+      herbId: herbId || medicinalUse?.herbId
+    };
+    
+    onSubmit(submitData);
   };
 
   return (
