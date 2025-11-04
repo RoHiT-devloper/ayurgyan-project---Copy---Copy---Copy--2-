@@ -1,0 +1,257 @@
+/* Enhanced responsive utilities */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.container-fluid {
+  width: 100%;
+  padding: 0 1rem;
+}
+
+/* Responsive grid system */
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -0.5rem;
+}
+
+.col {
+  flex: 1;
+  padding: 0 0.5rem;
+}
+
+.col-auto {
+  flex: 0 0 auto;
+  padding: 0 0.5rem;
+}
+
+.col-1 { flex: 0 0 8.333333%; }
+.col-2 { flex: 0 0 16.666667%; }
+.col-3 { flex: 0 0 25%; }
+.col-4 { flex: 0 0 33.333333%; }
+.col-5 { flex: 0 0 41.666667%; }
+.col-6 { flex: 0 0 50%; }
+.col-7 { flex: 0 0 58.333333%; }
+.col-8 { flex: 0 0 66.666667%; }
+.col-9 { flex: 0 0 75%; }
+.col-10 { flex: 0 0 83.333333%; }
+.col-11 { flex: 0 0 91.666667%; }
+.col-12 { flex: 0 0 100%; }
+
+/* Mobile-first responsive design */
+@media (max-width: 576px) {
+  .container {
+    padding: 0 0.75rem;
+  }
+  
+  .row {
+    margin: 0 -0.25rem;
+  }
+  
+  .col, [class*="col-"] {
+    padding: 0 0.25rem;
+  }
+  
+  .col-sm-1 { flex: 0 0 8.333333%; }
+  .col-sm-2 { flex: 0 0 16.666667%; }
+  .col-sm-3 { flex: 0 0 25%; }
+  .col-sm-4 { flex: 0 0 33.333333%; }
+  .col-sm-5 { flex: 0 0 41.666667%; }
+  .col-sm-6 { flex: 0 0 50%; }
+  .col-sm-7 { flex: 0 0 58.333333%; }
+  .col-sm-8 { flex: 0 0 66.666667%; }
+  .col-sm-9 { flex: 0 0 75%; }
+  .col-sm-10 { flex: 0 0 83.333333%; }
+  .col-sm-11 { flex: 0 0 91.666667%; }
+  .col-sm-12 { flex: 0 0 100%; }
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding: 0 1.5rem;
+  }
+  
+  .col-md-1 { flex: 0 0 8.333333%; }
+  .col-md-2 { flex: 0 0 16.666667%; }
+  .col-md-3 { flex: 0 0 25%; }
+  .col-md-4 { flex: 0 0 33.333333%; }
+  .col-md-5 { flex: 0 0 41.666667%; }
+  .col-md-6 { flex: 0 0 50%; }
+  .col-md-7 { flex: 0 0 58.333333%; }
+  .col-md-8 { flex: 0 0 66.666667%; }
+  .col-md-9 { flex: 0 0 75%; }
+  .col-md-10 { flex: 0 0 83.333333%; }
+  .col-md-11 { flex: 0 0 91.666667%; }
+  .col-md-12 { flex: 0 0 100%; }
+}
+
+@media (min-width: 992px) {
+  .col-lg-1 { flex: 0 0 8.333333%; }
+  .col-lg-2 { flex: 0 0 16.666667%; }
+  .col-lg-3 { flex: 0 0 25%; }
+  .col-lg-4 { flex: 0 0 33.333333%; }
+  .col-lg-5 { flex: 0 0 41.666667%; }
+  .col-lg-6 { flex: 0 0 50%; }
+  .col-lg-7 { flex: 0 0 58.333333%; }
+  .col-lg-8 { flex: 0 0 66.666667%; }
+  .col-lg-9 { flex: 0 0 75%; }
+  .col-lg-10 { flex: 0 0 83.333333%; }
+  .col-lg-11 { flex: 0 0 91.666667%; }
+  .col-lg-12 { flex: 0 0 100%; }
+}
+
+@media (min-width: 1200px) {
+  .col-xl-1 { flex: 0 0 8.333333%; }
+  .col-xl-2 { flex: 0 0 16.666667%; }
+  .col-xl-3 { flex: 0 0 25%; }
+  .col-xl-4 { flex: 0 0 33.333333%; }
+  .col-xl-5 { flex: 0 0 41.666667%; }
+  .col-xl-6 { flex: 0 0 50%; }
+  .col-xl-7 { flex: 0 0 58.333333%; }
+  .col-xl-8 { flex: 0 0 66.666667%; }
+  .col-xl-9 { flex: 0 0 75%; }
+  .col-xl-10 { flex: 0 0 83.333333%; }
+  .col-xl-11 { flex: 0 0 91.666667%; }
+  .col-xl-12 { flex: 0 0 100%; }
+}
+
+/* Responsive utilities */
+.d-none { display: none !important; }
+.d-block { display: block !important; }
+.d-flex { display: flex !important; }
+.d-inline { display: inline !important; }
+.d-inline-block { display: inline-block !important; }
+
+@media (max-width: 576px) {
+  .d-sm-none { display: none !important; }
+  .d-sm-block { display: block !important; }
+  .d-sm-flex { display: flex !important; }
+  .d-sm-inline { display: inline !important; }
+  .d-sm-inline-block { display: inline-block !important; }
+}
+
+@media (min-width: 768px) {
+  .d-md-none { display: none !important; }
+  .d-md-block { display: block !important; }
+  .d-md-flex { display: flex !important; }
+  .d-md-inline { display: inline !important; }
+  .d-md-inline-block { display: inline-block !important; }
+}
+
+@media (min-width: 992px) {
+  .d-lg-none { display: none !important; }
+  .d-lg-block { display: block !important; }
+  .d-lg-flex { display: flex !important; }
+  .d-lg-inline { display: inline !important; }
+  .d-lg-inline-block { display: inline-block !important; }
+}
+
+/* Text alignment */
+.text-left { text-align: left !important; }
+.text-center { text-align: center !important; }
+.text-right { text-align: right !important; }
+
+@media (max-width: 576px) {
+  .text-sm-left { text-align: left !important; }
+  .text-sm-center { text-align: center !important; }
+  .text-sm-right { text-align: right !important; }
+}
+
+@media (min-width: 768px) {
+  .text-md-left { text-align: left !important; }
+  .text-md-center { text-align: center !important; }
+  .text-md-right { text-align: right !important; }
+}
+
+/* Spacing utilities */
+.m-0 { margin: 0 !important; }
+.m-1 { margin: 0.25rem !important; }
+.m-2 { margin: 0.5rem !important; }
+.m-3 { margin: 1rem !important; }
+.m-4 { margin: 1.5rem !important; }
+.m-5 { margin: 3rem !important; }
+
+.p-0 { padding: 0 !important; }
+.p-1 { padding: 0.25rem !important; }
+.p-2 { padding: 0.5rem !important; }
+.p-3 { padding: 1rem !important; }
+.p-4 { padding: 1.5rem !important; }
+.p-5 { padding: 3rem !important; }
+
+/* Mobile navigation enhancements */
+.mobile-bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--bg-primary);
+  border-top: 1px solid var(--border-color);
+  padding: 0.5rem;
+  z-index: 1000;
+  display: none;
+}
+
+.mobile-nav-items {
+  display: flex;
+  justify-content: space-around;
+}
+
+.mobile-nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: var(--text-muted);
+  padding: 0.5rem;
+  border-radius: var(--radius-md);
+  transition: all var(--transition-normal);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.mobile-nav-item.active {
+  color: var(--primary-color);
+  background: rgba(37, 169, 113, 0.1);
+}
+
+.mobile-nav-icon {
+  margin-bottom: 0.25rem;
+}
+
+.mobile-nav-label {
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .mobile-bottom-nav {
+    display: block;
+  }
+  
+  /* Hide desktop navigation on mobile */
+  .desktop-nav {
+    display: none;
+  }
+}
+
+/* Touch-friendly button sizes */
+.btn-touch {
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0.75rem 1rem;
+}
+
+/* Improved form elements for mobile */
+.input-touch {
+  min-height: 44px;
+  font-size: 16px; /* Prevents zoom on iOS */
+}
+
+.select-touch {
+  min-height: 44px;
+  font-size: 16px;
+}

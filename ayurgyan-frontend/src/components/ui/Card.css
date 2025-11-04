@@ -1,0 +1,64 @@
+.card {
+  background: var(--bg-primary);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-color);
+  transition: all var(--transition-normal);
+  overflow: hidden;
+}
+
+.card:hover {
+  box-shadow: var(--shadow-lg);
+  border-color: var(--primary-color);
+  transform: translateY(-4px);
+}
+
+.card-hover {
+  transition: all var(--transition-normal);
+}
+
+.card-hover:hover {
+  transform: translateY(-8px);
+}
+
+.card-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+  background: var(--bg-secondary);
+}
+
+.card-body {
+  padding: 1.5rem;
+}
+
+.card-footer {
+  padding: 1.5rem;
+  border-top: 1px solid var(--border-color);
+  background: var(--bg-secondary);
+}
+
+.feature-card {
+  background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+  text-align: center;
+  padding: 2rem;
+  transition: all var(--transition-normal);
+}
+
+.feature-card:hover {
+  transform: scale(1.05);
+}
+
+.herb-card {
+  overflow: hidden;
+}
+
+.herb-card-image {
+  width: 100%;
+  height: 12rem;
+  object-fit: cover;
+  transition: transform var(--transition-normal);
+}
+
+.herb-card:hover .herb-card-image {
+  transform: scale(1.1);
+}

@@ -1,0 +1,227 @@
+.medicinal-use-form-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1100;
+  padding: 20px;
+}
+
+.medicinal-use-form-modal {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  width: 100%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.medicinal-use-form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 1px solid #e5e7eb;
+  background: #f9fafb;
+}
+
+.medicinal-use-form-header h2 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+.medicinal-use-form {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.medicinal-use-form .form-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  padding: 20px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.medicinal-use-form .form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.medicinal-use-form .form-group.full-width {
+  grid-column: 1 / -1;
+}
+
+.medicinal-use-form .form-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 6px;
+}
+
+.medicinal-use-form .form-input,
+.medicinal-use-form .form-select,
+.medicinal-use-form .form-textarea {
+  padding: 10px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  transition: all 0.2s;
+  background: white;
+  font-family: inherit;
+}
+
+.medicinal-use-form .form-input:focus,
+.medicinal-use-form .form-select:focus,
+.medicinal-use-form .form-textarea:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.medicinal-use-form .form-input:disabled,
+.medicinal-use-form .form-select:disabled,
+.medicinal-use-form .form-textarea:disabled {
+  background: #f9fafb;
+  color: #6b7280;
+  cursor: not-allowed;
+}
+
+.medicinal-use-form .form-textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.medicinal-use-form .form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 16px 20px;
+  border-top: 1px solid #e5e7eb;
+  background: #f9fafb;
+}
+
+.medicinal-use-form .btn-primary {
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.medicinal-use-form .btn-primary:hover {
+  background: #1d4ed8;
+}
+
+.medicinal-use-form .btn-primary:disabled {
+  background: #93c5fd;
+  cursor: not-allowed;
+}
+
+.medicinal-use-form .btn-secondary {
+  padding: 10px 20px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  background: white;
+  color: #374151;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.medicinal-use-form .btn-secondary:hover {
+  background: #f9fafb;
+  border-color: #9ca3af;
+}
+
+.medicinal-use-form .btn-secondary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  padding: 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  color: #6b7280;
+  transition: all 0.2s;
+}
+
+.close-button:hover {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+.close-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Responsive Design */
+@media (max-width: 640px) {
+  .medicinal-use-form-overlay {
+    padding: 10px;
+  }
+  
+  .medicinal-use-form-modal {
+    max-height: 95vh;
+  }
+  
+  .medicinal-use-form-header {
+    padding: 16px;
+  }
+  
+  .medicinal-use-form .form-grid {
+    padding: 16px;
+    gap: 12px;
+  }
+  
+  .medicinal-use-form .form-actions {
+    padding: 12px 16px;
+    flex-direction: column-reverse;
+  }
+  
+  .medicinal-use-form .btn-primary,
+  .medicinal-use-form .btn-secondary {
+    width: 100%;
+  }
+}
+
+/* Scrollbar Styling */
+.medicinal-use-form-modal ::-webkit-scrollbar {
+  width: 6px;
+}
+
+.medicinal-use-form-modal ::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.medicinal-use-form-modal ::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+.medicinal-use-form-modal ::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}

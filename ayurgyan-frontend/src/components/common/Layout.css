@@ -1,0 +1,17 @@
+.layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-secondary);
+}
+
+.main-content {
+  flex: 1;
+  padding-bottom: 5rem; /* Space for mobile nav */
+}
+
+@media (min-width: 769px) {
+  .main-content {
+    padding-bottom: 0;
+  }
+}
